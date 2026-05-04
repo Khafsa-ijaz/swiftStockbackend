@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsNumber, IsString, Matches } from "class-validator"
+import { IsNotEmpty, IsNumber, IsString, Matches, Min, } from "class-validator"
+import { Unique } from "typeorm/browser"
 
 export class Product{
     @IsNotEmpty()
@@ -12,6 +13,7 @@ export class Product{
     sku!:string
     @IsNumber()
     @IsNotEmpty()
+    @Min(1)
     price!:number
     @IsNotEmpty()
     @IsNumber()

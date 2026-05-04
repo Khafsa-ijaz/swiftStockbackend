@@ -15,7 +15,7 @@ export class User{
         enum: ["Admin","Staff"],
         default:"Admin",
     })
-    userRole!:string
+    userRole!:"Admin" | "Staff"
 @OneToMany(()=>Order,(order)=>order.user)
 order!:Order
 }

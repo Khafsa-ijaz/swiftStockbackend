@@ -4,6 +4,8 @@ import { User } from "../entities/user.entities";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AppError } from "../utils/AppError";
+import { permissions } from "../rbac/permissions.rbac";
+import { rolePermissions } from "../rbac/roles.rbac";
 
 export const LoginUser = async (req: Request, res: Response,next:NextFunction) => {
     try {
@@ -26,6 +28,7 @@ return res.status(201).json({message:"login successfully",
     success:true,
     user,
     token,
+    permissions:rolePermissions[user.userRole]
 })
     } catch (error) {
 next(error); 

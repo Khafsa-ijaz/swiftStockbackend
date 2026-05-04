@@ -1,3 +1,4 @@
+import { Admin } from "typeorm";
 
 export {};
 
@@ -7,14 +8,14 @@ declare global {
       // Adjust the properties to match your user object
       user?: {
         id: number;
-        role: string;
+        role: "Admin"|"Staff";
         // add other fields if needed
       };
       
     }
     interface JwtPayload {
   id: number;
-  role: string;
+   role: "Admin"|"Staff";
 }
   }
 }

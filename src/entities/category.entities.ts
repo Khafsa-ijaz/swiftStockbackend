@@ -8,6 +8,9 @@ import { Product } from "./product.enetities";
  name!:string
 @Column()
 description!:string
+@Column({ unique: true })
+sku!: string
 @OneToMany(()=>Product,(product)=>product.category)
 product!:Product
  }
+ //need to add SKU i will add after frontend completed

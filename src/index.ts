@@ -2,6 +2,10 @@ import "reflect-metadata";
 import { AppDataSource } from "./config/db";
 
 import app from "./app";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger.config";
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const DatbaseCheck=async()=>{
     
 try {

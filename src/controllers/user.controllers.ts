@@ -39,12 +39,19 @@ export const UpdateUser = async (req: Request, res: Response,next:NextFunction) 
     try {
         const repo = AppDataSource.getRepository(User);
         const userid = Number(req.params.id);
+        
         const { name, email, userRole, password } = req.body
-        const updateUser = await repo.findOneBy({ id: Number(userid) });
+        const updateUser = await repo.findOneBy({ id: userid });
         if (!updateUser) {
            
             throw new AppError("user not found",404)
         }
+        if (isNaN(userid)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user id",
+      });
+    }
         const hashedPassword = await bcrypt.hash(password, 10)
         repo.merge(updateUser, { name, email, userRole, password: hashedPassword });
         const result = await repo.save(updateUser);
@@ -72,8 +79,8 @@ export const GetAllUsers =async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const repo=AppDataSource.getRepository(User);
         const users=await repo.find();
-        return res.status(201).json({message:"All users are Here",
-            users
+        return res.status(200).json({message:"All users are Here",
+            users,
         })
     } catch (error) {
         next(error)
